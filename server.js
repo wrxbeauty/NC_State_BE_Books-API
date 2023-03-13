@@ -33,19 +33,9 @@ app.get('/', function (req, res) {
     res.send('My Books')
 })
 
-// app.get('/books', (req,res) => {
-//     res.send([1,2,3]);
-// })
-
 // Books
 const booksController = require('./controllers/books_controller.js')
 app.use('/books', booksController)
-
-
-
-// app.post('/book', (req, res) => {
-//     res.send('My First Book')
-// })
 
 // Listen for connections.
 app.listen(PORT, function () {
