@@ -4,14 +4,14 @@ const Book = require('../models/books.js')
 
 // Index
 books.get('/', (req, res) => {
-  res.send('Index')
+  res.json('Index')
 })
 
 // New
 books.get('/books', (req, res) => {
   Book.find()
     .then(() => {
-      res.render('new')
+      res.json('new')
     })
 })
 
@@ -20,7 +20,7 @@ books.get('/books/:id', (req, res) => {
   Book.findById()
     .populate()
     .then(
-      res.render('show')
+      res.json('show')
     )
     .catch(err => {
       res.send('404')
@@ -33,7 +33,7 @@ books.get('/books/:id', (req, res) => {
     .then(() => {
       Book.findById(req.params.id)
         .then(() => {
-          res.render('edit')
+          res.json('edit')
         })
     })
 })
@@ -67,7 +67,7 @@ books.delete('/books/:id', (req, res) => {
 
 // SEED
 books.get('/seed', (req, res) => {
-  Book.insertMany([{
+  db.Book.insertMany([{
     "title": "The Shinobi Initiative",
     "description": "The reality-bending adventures of a clandestine service agency in the year 2166",
     "year": 2014,

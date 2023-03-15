@@ -8,14 +8,6 @@ require('dotenv').config()
 const PORT = process.env.PORT
 const app = express()
 
-// Middleware
-app.set('views', __dirname + '/views')
-app.set('view engine', 'jsx')
-app.engine('jsx', require('express-react-views').createEngine())
-app.use(express.urlencoded({extended: true}))
-app.use(express.static('public'))
-app.use(methodOverride('_method'))
-
 mongoose.connect(process.env.MONGO_URI, 
 {
     useNewUrlParser: true, 
@@ -26,6 +18,15 @@ mongoose.connect(process.env.MONGO_URI,
     console.error('Error connecting to MongoDB: ', err);
 })
 
+// Middleware
+app.use(express.urlencoded({extended: true}))
+
+
+app.set('views', __dirname + '/views')
+app.set('view engine', 'jsx')
+app.use(express.static('public'))
+
+
 // Routes
 app.get('/', function (req, res) {
     // This gets sent to the client 
@@ -33,7 +34,7 @@ app.get('/', function (req, res) {
     res.send('My Books')
 })
 
-// Books
+// Controllers
 const booksController = require('./controllers/books_controller.js')
 app.use('/books', booksController)
 
